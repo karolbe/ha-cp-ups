@@ -1,0 +1,32 @@
+services:
+  pwrstat:
+    image: your-dockerhub-username/cyberpower-ups:latest  # Change this!
+    container_name: pwrstat
+    restart: unless-stopped
+    privileged: true  # Required for USB access
+    devices:
+      - /dev/bus/usb:/dev/bus/usb  # USB access for UPS
+      - /dev/bus/usb/001/010:/dev/bus/usb/001/010  # Specific UPS device
+    volumes:
+      - /dev:/dev
+      - /run/udev:/run/udev:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "5003:5003"   # REST API
+      - "9222:9222"   # Prometheus metrics
+    environment:
+      # Logging
+      - LOG_LEVEL=INFO
+      
+      # MQTT Configuration  
+      - MQTT_HOST=192.168.1.100        # Change to your Home Assistant IP
+      - MQTT_PORT=1883
+      - MQTT_USER=your_mqtt_user       # Your MQTT username
+      - MQTT_PASS=your_mqtt_password   # Your MQTT password
+      - MQTT_PREFIX=pwrstat
+      - MQTT_CLIENT_ID=pwrstat
+      - MQTT_TOPIC=power/ups
+      - MQTT_RETAIN=true
+      - MQTT_QOS=2
+      - MQTT_REFRESH=30
+    network_mode: host
