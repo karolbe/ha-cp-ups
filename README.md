@@ -4,6 +4,9 @@ A standalone Docker container that monitors CyberPower UPS devices and integrate
 
 Originally based on the [deprecated HassOS-Addons/pwrstat](https://github.com/DanielWinks/HassOS-Addons) addon, converted to run as a standalone Docker container on Intel x64 systems.
 
+
+![Alt text](assets/dashboard.png?raw=true "Dashboard")
+
 ## Features
 
 - 📊 **Real-time UPS monitoring** - Battery level, load, voltage, runtime
